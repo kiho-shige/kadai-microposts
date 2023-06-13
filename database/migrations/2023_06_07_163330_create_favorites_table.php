@@ -21,7 +21,7 @@ return new class extends Migration
 
             // 外部キー制約
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('microposts_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('microposts_id')->references('id')->on('microposts')->onDelete('cascade');
 
             // user_idとmicroposts_idの組み合わせの重複を許さない
             $table->unique(['user_id', 'microposts_id']);

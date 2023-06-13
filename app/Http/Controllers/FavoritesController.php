@@ -25,7 +25,7 @@ class FavoritesController extends Controller
     public function destroy($microposts_id)
     {
         // 認証済みユーザ（閲覧者）が、 idのユーザをアンフォローする
-        \Auth::user()->unfavorite($micropost_id);
+        \Auth::user()->unfavorite($microposts_id);
         // 前のURLへリダイレクトさせる
         return back();
     }
