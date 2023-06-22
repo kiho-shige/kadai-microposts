@@ -20,6 +20,7 @@ use App\Http\Controllers\FavoritesController;
 
 Route::get('/', [MicropostsController::class, 'index']);
 Route::get('/dashboard', [MicropostsController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::get('/profile', [MicropostsController::class, 'index'])->middleware(['auth'])->name('profile');
 
 require __DIR__.'/auth.php';
 
@@ -32,8 +33,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('favorites', [UsersController::class, 'favorites'])->name('users.favorites');  
     });                                                                                             
     
-    Route::resource('users', UsersController::class, ['only' => ['index', 'show']]);     
-    Route::resource('microposts', MicropostsController::class, ['only' => ['store', 'destroy']]);
+    Route::resource('users', UsersController::class, ['only' => ['index', 'show', 'edit', 'update']]);    
+    Route::resource('microposts', MicropostsController::class, ['only' => ['store', 'destroy', 'edit', 'update']]);
     
     Route::group(['prefix' => 'microposts/{id}'], function () {                                             
         Route::post('favorites', [FavoritesController::class, 'store'])->name('favorites.favorite');        

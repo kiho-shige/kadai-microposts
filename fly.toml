@@ -1,0 +1,36 @@
+# fly.toml app configuration file generated for purple-paper-4644 on 2023-06-22T02:05:31Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "purple-paper-4644"
+primary_region = "nrt"
+console_command = "php /var/www/html/artisan tinker"
+
+[build]
+  [build.args]
+    NODE_VERSION = "18"
+    PHP_VERSION = "8.1"
+
+[env]
+  APP_DEBUG = "false"
+  APP_ENV = "production"
+  APP_NAME = "Laravel"
+  APP_URL = "https://fly.io/apps/purple-paper-4644.fly.dev"
+  DB_CONNECTION = "pgsql"
+  DB_DATABASE = "postgres"
+  DB_HOST = "db.wqhgtixnhxxpxikhntdh.supabase.co"
+  DB_PORT = "5432"
+  DB_USERNAME = "postgres"
+  LOG_CHANNEL = "stderr"
+  LOG_LEVEL = "info"
+  LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
+  SESSION_DRIVER = "cookie"
+  SESSION_SECURE_COOKIE = "true"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0

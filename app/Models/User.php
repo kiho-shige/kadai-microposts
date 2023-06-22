@@ -18,10 +18,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        "name",
+        "email",
+        "password",
+        "bio",
+        "loc"
     ];
+    protected $dates = [];
+    public $timestamps = false;
 
     /**
      * The attributes that should be hidden for serialization.
@@ -78,6 +82,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Micropost::class, 'favorites', 'user_id', 'microposts_id')->withTimestamps();
     }
+    
     
     /**
      * $userIdで指定されたユーザをフォローする。

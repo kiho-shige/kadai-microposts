@@ -37,6 +37,50 @@ class UsersController extends Controller
             'microposts' => $microposts,
         ]);
     }
+     public function update(Request $request, $id)
+    {
+        // バリデーション
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|max:255',
+            'bio' => 'max:255',
+            'loc' => 'max:255',
+        ]);
+        
+        // idの値でメッセージを検索して取得
+        $user = User::findOrFail($id);
+        // メッセージを更新
+        //$user->fill($request->all())->save();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->bio = $request->bio;
+        $user->loc = $request->loc;
+        $user->save(); 
+
+        // トップページへリダイレクトさせる
+        return redirect('/');
+    }
+    
+    public function edit($id)
+    {
+        // idの値でメッセージを検索して取得
+        $user = User::findOrFail($id);
+        
+        // 認証済みユーザ（閲覧者）がその投稿の所有者である場合は編集
+        if (\Auth::id() === $user->id) {
+            return view('profile.profile_edit', [
+            'user' => $user,
+            /*'name' => $name,
+            'email' => $email,
+            'bio' => $bio,
+            'loc' => $loc*/
+        ]);
+        } 
+
+        // 前のURLへリダイレクトさせる
+        return redirect('/')
+            ->with('Edit Failed'); 
+    }
     
     /**
      * ユーザのフォロー一覧ページを表示するアクション。
