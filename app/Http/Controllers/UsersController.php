@@ -41,20 +41,20 @@ class UsersController extends Controller
     {
         // バリデーション
         $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|max:255',
-            'bio' => 'max:255',
-            'loc' => 'max:255',
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'biography' => ['max:255'],
+            'location' => ['max:255'],
         ]);
         
-        // idの値でメッセージを検索して取得
+        
         $user = User::findOrFail($id);
-        // メッセージを更新
+        // 更新
         //$user->fill($request->all())->save();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->bio = $request->bio;
-        $user->loc = $request->loc;
+        $user->biography = $request->biography;
+        $user->location = $request->location;
         $user->save(); 
 
         // トップページへリダイレクトさせる
@@ -66,14 +66,10 @@ class UsersController extends Controller
         // idの値でメッセージを検索して取得
         $user = User::findOrFail($id);
         
-        // 認証済みユーザ（閲覧者）がその投稿の所有者である場合は編集
+        // 認証済みユーザ（閲覧者）がそのプロフィールの所有者である場合は編集
         if (\Auth::id() === $user->id) {
             return view('profile.profile_edit', [
-            'user' => $user,
-            /*'name' => $name,
-            'email' => $email,
-            'bio' => $bio,
-            'loc' => $loc*/
+            'user' => $user
         ]);
         } 
 

@@ -26,17 +26,17 @@
                 </div>
                 
                 <div class="form-control my-4">
-                    <label for="bio" class="label">
-                        <span class="label-text">bio:</span>
+                    <label for="biography" class="label">
+                        <span class="label-text">biography:</span>
                     </label>
-                    <input type="text" name="bio" value="{{ $user->bio }}" class="input input-bordered w-full">
+                    <input type="text" name="biography" value="{{ $user->biography }}" class="input input-bordered w-full">
                 </div>
                 
                 <div class="form-control my-4">
-                    <label for="loc" class="label">
+                    <label for="location" class="label">
                         <span class="label-text">location:</span>
                     </label>
-                    <input type="text" name="loc" value="{{ $user->loc }}" class="input input-bordered w-full">
+                    <input type="text" name="location" value="{{ $user->location }}" class="input input-bordered w-full">
                 </div>
 
             <button type="submit" class="btn btn-outline">更新</button>
